@@ -8,8 +8,9 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: "http://localhost:8080",
-    methods: ["GET", "POST"]
+    origin: true, // Allow all origins for published apps, or specify your domain
+    methods: ["GET", "POST"],
+    credentials: true
   }
 });
 
