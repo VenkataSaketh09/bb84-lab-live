@@ -1,73 +1,184 @@
-# Welcome to your Lovable project
+# BB84 Quantum Key Distribution Simulation
 
-## Project info
+A full-stack real-time web application that simulates the BB84 quantum key distribution protocol with beautiful animations and multi-client support.
 
-**URL**: https://lovable.dev/projects/f3553586-0428-4f80-97c0-16661f0ec506
+![BB84 Protocol Demo](https://via.placeholder.com/800x400/1a1a2e/16a085?text=BB84+Quantum+Protocol)
 
-## How can I edit this code?
+## Features
 
-There are several ways of editing your application.
+- **Real-time Multi-Client Simulation**: Alice, Bob, and Eve can join from different computers
+- **Complete BB84 Protocol**: Bit generation, photon transmission, base comparison, QBER calculation
+- **Eavesdropping Detection**: Eve can intercept communications, increasing error rate
+- **One-Time Pad Encryption**: Secure message exchange using the generated quantum key
+- **Beautiful Animations**: Smooth photon animations with Framer Motion
+- **Quantum-Themed UI**: Sci-fi inspired design with glowing effects
 
-**Use Lovable**
+## Tech Stack
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/f3553586-0428-4f80-97c0-16661f0ec506) and start prompting.
+### Frontend
+- **React** with TypeScript
+- **Vite** for fast development
+- **Tailwind CSS** for styling
+- **Framer Motion** for animations
+- **Socket.IO Client** for real-time communication
+- **shadcn/ui** components
 
-Changes made via Lovable will be committed automatically to this repo.
+### Backend
+- **Node.js** with Express
+- **Socket.IO** for real-time WebSocket communication
+- **UUID** for session management
 
-**Use your preferred IDE**
+## Setup Instructions
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Prerequisites
+- Node.js (v16 or higher)
+- npm (comes with Node.js)
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### 1. Clone the Repository
+```bash
+git clone <your-repo-url>
+cd bb84-simulation
+```
 
-Follow these steps:
+### 2. Setup Frontend
+```bash
+# Install frontend dependencies
+npm install
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Start the frontend development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+The frontend will be available at `http://localhost:8080`
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### 3. Setup Backend
+```bash
+# Navigate to backend directory
+cd backend
 
-**Use GitHub Codespaces**
+# Install backend dependencies
+npm install
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+# Start the backend server
+npm run dev
+```
 
-## What technologies are used for this project?
+The backend server will run on `http://localhost:3001`
 
-This project is built with:
+### 4. Access the Application
+Open your browser and go to `http://localhost:8080`
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## How to Use
 
-## How can I deploy this project?
+### 1. Role Selection
+When you first access the application, choose your role:
+- **Alice**: The quantum key sender
+- **Bob**: The quantum key receiver  
+- **Eve**: The eavesdropper (optional)
 
-Simply open [Lovable](https://lovable.dev/projects/f3553586-0428-4f80-97c0-16661f0ec506) and click on Share -> Publish.
+### 2. BB84 Protocol Simulation
 
-## Can I connect a custom domain to my Lovable project?
+#### As Alice:
+1. Click "Generate Random Bits + Bases" to create quantum bits
+2. Click "Send to Bob" to transmit photons (watch the animation!)
+3. Click "Compare Bases" to start key sifting
+4. Click "Check QBER" to calculate error rate
+5. If QBER is low enough, click "Generate Final Key"
 
-Yes, you can!
+#### As Bob:
+1. Click "Receive Photons" to start measurement
+2. Watch as photons arrive and get measured
+3. See the sifted key appear automatically
+4. View the final shared key
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+#### As Eve:
+1. Toggle "Intercept Communications" to start eavesdropping
+2. Watch as your interference increases the QBER
+3. See the protocol detect your presence!
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+### 3. One-Time Pad Communication
+Once a secure key is established:
+1. Type a secret message
+2. Click "Encrypt & Send" 
+3. The other party receives the encrypted message
+4. Click "Decrypt Message" to reveal the original text
+
+## Protocol Details
+
+### BB84 Steps Implemented:
+1. **Bit Generation**: Alice generates random bits and bases
+2. **Quantum Transmission**: Photons sent through quantum channel
+3. **Measurement**: Bob measures with random bases
+4. **Sifting**: Publicly compare bases, keep matching bits
+5. **Error Detection**: Calculate QBER to detect eavesdropping
+6. **Key Generation**: Create final shared secret key
+
+### Error Detection:
+- **QBER Threshold**: 11% (configurable)
+- **Above Threshold**: Eavesdropping detected, restart required
+- **Below Threshold**: Secure key can be generated
+
+## Multi-Client Support
+
+- Multiple users can join the same session from different devices
+- Real-time synchronization of all protocol steps
+- Online user indicator shows who's connected
+- Session state persists across client connections
+
+## Security Features
+
+- **Quantum Bit Error Rate (QBER)** calculation
+- **Eavesdropping detection** via error analysis
+- **One-Time Pad encryption** with quantum-generated key
+- **Perfect forward secrecy** (new key for each session)
+
+## Development
+
+### Project Structure
+```
+bb84-simulation/
+├── src/                    # Frontend React app
+│   ├── components/         # UI components
+│   ├── lib/               # Utilities and BB84 logic
+│   ├── types/             # TypeScript definitions
+│   └── pages/             # Application pages
+├── backend/               # Node.js server
+│   ├── server.js          # Socket.IO server
+│   └── package.json       # Backend dependencies
+└── README.md
+```
+
+### Available Scripts
+
+#### Frontend
+- `npm run dev`: Start development server
+- `npm run build`: Build for production
+- `npm run preview`: Preview production build
+
+#### Backend
+- `npm run dev`: Start with nodemon (auto-restart)
+- `npm start`: Start production server
+
+## Educational Value
+
+This simulation demonstrates:
+- **Quantum Key Distribution** principles
+- **Information-theoretic security** concepts
+- **Eavesdropping detection** in quantum systems
+- **One-Time Pad** perfect encryption
+- **Real-time collaborative protocols**
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
+
+## License
+
+This project is for educational purposes and demonstrates quantum cryptography concepts.
+
+---
+
+**Note**: This is a simulation for learning purposes. Real quantum key distribution requires actual quantum hardware and photon-based communication channels.
